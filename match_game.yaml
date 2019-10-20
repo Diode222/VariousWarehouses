@@ -10,8 +10,9 @@ spec:
     emptyDir: {}
 
   containers:
-  - name: gomoku_game_referee
+  - name: gomoku-game-referee
     image: registry.cn-hangzhou.aliyuncs.com/gomoku_game/gomoku_game_referee:test
+    imagePullPolicy: Always
     ports:
     - containerPort: 10003
     volumeMounts:
@@ -35,8 +36,8 @@ spec:
     - name: LOG_VOLUME_ADDR_PLAYER2
       value: "/match_logs/player2_log"
     command: ["./main"]
-  
-  - name: gomoku_game_player1
+ 
+  - name: gomoku-game-player1
     image: registry.cn-hangzhou.aliyuncs.com/gomoku_game/gomoku_game_impl:test
     imagePullPolicy: Always
     ports:
@@ -46,7 +47,7 @@ spec:
       mountPath: /match_logs
     resources:
       limits:
-        cpu: 512m
+        cpu: 256m
         memory: 512Mi
     env:
     - name: LOG_VOLUME_ADDR
@@ -55,7 +56,7 @@ spec:
       value: "10001"
     command: ["./main"]
 
-  - name: gomoku_game_player2
+  - name: gomoku-game-player2
     image: registry.cn-hangzhou.aliyuncs.com/gomoku_game/gomoku_game_impl:test
     imagePullPolicy: Always
     ports:
@@ -65,7 +66,7 @@ spec:
       mountPath: /match_logs
     resources:
       limits:
-        cpu: 512m
+        cpu: 256m
         memory: 512Mi
     env:
     - name: LOG_VOLUME_ADDR
